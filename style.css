@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    background: #3b1a78;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: monospace;
+}
+
+#game {
+    width: 900px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(#4e2b9b, #ff6a4a, #ffb547);
+    image-rendering: pixelated;
+}
+
+#ui {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    font-size: 32px;
+    color: #ffe7a1;
+    font-weight: bold;
+}
+
+#dino {
+    position: absolute;
+    bottom: 30px;
+    left: 70px;
+    width: 90px;
+    height: 90px;
+
+    background: url('https://i.imgur.com/H84sG5H.png') no-repeat; /* Dino con gafas */
+    background-size: contain;
+}
+
+#cactus {
+    position: absolute;
+    bottom: 30px;
+    right: -80px;
+    width: 70px;
+    height: 110px;
+    background: url('https://i.imgur.com/5tgBcrk.png') no-repeat; /* Cactus pixel */
+    background-size: contain;
+}
+
+#coin {
+    position: absolute;
+    bottom: 170px;
+    right: -80px;
+    width: 45px;
+    height: 45px;
+    background: url('https://i.imgur.com/XUmf6qo.png');
+    background-size: contain;
+}
+
+.jump {
+    animation: jumpAnim 0.55s ease-out;
+}
+
+@keyframes jumpAnim {
+    0% { bottom: 30px; }
+    50% { bottom: 160px; }
+    100% { bottom: 30px; }
+}
