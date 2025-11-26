@@ -1,155 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Dino Game Retro</title>
-<style>
-    body {
-        background: #f8efd5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        font-family: monospace;
-        color: #3b2e2e;
-    }
-
-    #game {
-        position: relative;
-        width: 900px;
-        height: 300px;
-        background: #f8efd5;
-        border: 0px solid black;
-        overflow: hidden;
-    }
-
-    #score, #lives {
-        position: absolute;
-        top: 10px;
-        font-size: 35px;
-        color: #3b2e2e;
-        font-weight: bold;
-    }
-
-    #score { left: 20px; }
-    #lives { right: 20px; }
-
-    .dino {
-        position: absolute;
-        bottom: 30px;
-        left: 50px;
-        width: 60px;
-        height: 60px;
-        background: url('https://i.imgur.com/O3NNuGg.png') no-repeat;
-        background-size: contain;
-        image-rendering: pixelated;
-    }
-
-    .cactus {
-        position: absolute;
-        bottom: 30px;
-        right: -50px;
-        width: 40px;
-        height: 70px;
-        background: url('https://i.imgur.com/W2VvquP.png') no-repeat;
-        background-size: contain;
-        image-rendering: pixelated;
-    }
-
-    .cloud {
-        position: absolute;
-        top: 40px;
-        width: 120px;
-        height: 40px;
-        background: url('https://i.imgur.com/rd6zN7E.png') no-repeat;
-        background-size: contain;
-        image-rendering: pixelated;
-        animation: cloudMove 12s linear infinite;
-    }
-
-    @keyframes cloudMove {
-        from { left: 900px; }
-        to { left: -150px; }
-    }
-
-    @keyframes jump {
-        0% { bottom: 30px; }
-        50% { bottom: 150px; }
-        100% { bottom: 30px; }
-    }
-
-</style>
+    <meta charset="UTF-8">
+    <title>Dino Pixel Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="game">
-    <div id="score">SCORE 00000</div>
-    <div id="lives">❤ 3</div>
+    <div id="ui">
+        <div id="score">00000</div>
+        <div id="lives">❤️❤️❤️</div>
+    </div>
 
-    <div class="cloud" style="animation-delay: 0s;"></div>
-    <div class="cloud" style="top: 80px; animation-delay: 5s;"></div>
-
-    <div class="dino" id="dino"></div>
-    <div class="cactus" id="cactus"></div>
+    <div id="dino"></div>
+    <div id="cactus"></div>
+    <div id="coin"></div>
 </div>
 
-<script>
-let dino = document.getElementById("dino");
-let cactus = document.getElementById("cactus");
-let scoreText = document.getElementById("score");
-let livesText = document.getElementById("lives");
-
-let score = 0;
-let lives = 3;
-let jumping = false;
-
-document.addEventListener("keydown", () => {
-    if (!jumping) {
-        jumping = true;
-        dino.style.animation = "jump 0.6s ease-out";
-        setTimeout(() => {
-            dino.style.animation = "";
-            jumping = false;
-        }, 600);
-    }
-});
-
-function moveCactus() {
-    cactus.style.right = "-50px";
-
-    let speed = 6;
-
-    let interval = setInterval(() => {
-        let cactusPos = parseInt(window.getComputedStyle(cactus).getPropertyValue("right"));
-        cactus.style.right = cactusPos + speed + "px";
-
-        let dinoBottom = parseInt(window.getComputedStyle(dino).getPropertyValue("bottom"));
-
-        if (cactusPos > 840 && cactusPos < 900 && dinoBottom < 80) {
-            lives--;
-            livesText.textContent = "❤ " + lives;
-
-            cactus.style.right = "-50px";
-
-            if (lives <= 0) {
-                alert("Game Over - Score: " + score);
-                score = 0;
-                lives = 3;
-            }
-        }
-
-        if (cactusPos > 950) {
-            cactus.style.right = "-50px";
-            score += 10;
-            scoreText.textContent = "SCORE " + score.toString().padStart(5, '0');
-        }
-
-    }, 20);
-}
-
-moveCactus();
-</script>
-
+<script src="game.js"></script>
 </body>
 </html>
